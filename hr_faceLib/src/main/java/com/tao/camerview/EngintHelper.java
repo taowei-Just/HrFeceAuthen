@@ -42,23 +42,23 @@ import static android.R.attr.x;
 
 public class EngintHelper {
 
+    
     public static String appid = "2czGDdCTQbBN4w8CdJUeGGfgizwgz1jVP97L2NbCseBG";
     public static String ft_key = "Ho6BRV7jpDhak7hrDP4pJMu2vpd72kbvs8zF3VJqCbrD";
     public static String fd_key = "Ho6BRV7jpDhak7hrDP4pJMuA6DtGxez8iodB9KQWEbuS";
     public static String fr_key = "Ho6BRV7jpDhak7hrDP4pJMuHFd9UwUUve21DhRPyJXwD";
     public static String age_key = "Ho6BRV7jpDhak7hrDP4pJMuu4dTLug6UEWmAoJuUGoY7";
     public static String gender_key = "Ho6BRV7jpDhak7hrDP4pJMv2E2iVwtYXaPVQh4Cgitey";
-
-
+    
     String TAG = getClass().getSimpleName();
-
+    
     SurfaceView faceView;
     SurfaceView frameView;
     private Camera camera;
     Activity activity;
     private MyThread myThread;
     //    FrameSurface faceFrameSurface;
-    private float pass = 0.6f;
+    private float pass = 0.55f;
     private OnFaceCallback onFaceCallback;
     private long faceExTime = 60 * 100 * 1000;
     //   public static RgbRect firstRgbRect;
@@ -139,7 +139,7 @@ public class EngintHelper {
             camera.setPreviewCallback(new MyPreview(this));
             camera.getParameters().setPreviewFormat(ImageFormat.NV21);
             camera.getParameters().setPreviewSize(faceView.getWidth(), faceView.getHeight());
-            camera.setDisplayOrientation(90);
+            camera.setDisplayOrientation(0);
             camera.startPreview();
 
             // 人脸获取线程
@@ -191,15 +191,15 @@ public class EngintHelper {
 //                                    Log.e(TAG, "onDetectResult right " + right);
                                 }
                                 
-                                left = (pwidth - rec.left) * xRatio;
-                                right = (pwidth - rec.right) * xRatio;
+//                                left = (pwidth - rec.left) * xRatio;
+//                                right = (pwidth - rec.right) * xRatio;
                                 int top = (int) (rec.top * yRatio);
                                 int bottom = (int) (rec.bottom * yRatio);
                                 rec.left = (int) left;
                                 rec.right = (int) right;
                                 rec.top = top;
                                 rec.bottom = bottom;
-                                rec = orentation(rec, 90, mCanvas , previewSize);
+//                                rec = orentation(rec, 90, mCanvas , previewSize);
 //                                Log.e(TAG, "onDetectResult t " + rect.getRect());
 
                                 Paint paint = new Paint();

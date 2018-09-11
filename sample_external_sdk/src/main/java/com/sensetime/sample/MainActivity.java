@@ -124,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
 
         );
         mCameraView.startPreview();
-
     }
 
 
@@ -257,8 +256,8 @@ public class MainActivity extends AppCompatActivity {
           bos.close();
           fos.close();
       }catch (Exception e){
-          e.printStackTrace();}
-
+          e.printStackTrace();
+      }
     }
 
 

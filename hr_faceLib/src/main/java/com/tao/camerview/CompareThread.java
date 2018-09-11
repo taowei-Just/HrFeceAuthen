@@ -33,6 +33,7 @@ public class CompareThread extends Thread {
     EngintHelper engintHelper;
     private AFD_FSDKEngine fsdkEngine;
     private final AFR_FSDKEngine afr_fsdkEngine;
+    private String tag = getClass().getSimpleName();
 
     public CompareThread(EngintHelper engintHelper) {
         this.engintHelper = engintHelper;
@@ -98,7 +99,8 @@ public class CompareThread extends Thread {
                 return;
             }
             int lastIndex = -1;
-            Log.e(TAG, "  第一张人脸有特征  开启轮训匹配  ！ " + list.size());
+         
+            Log.e(tag, "  第一张人脸有特征  开启轮训匹配  ！ " + list.size());
 
             int code = fsdkError.getCode();
             int code1 = error.getCode();
@@ -107,13 +109,14 @@ public class CompareThread extends Thread {
                 AfdData afd_fsdkFaces = engintHelper.updataRgbRect(null, false);
 
                 if (afd_fsdkFaces != null)
-                    Log.e(TAG, "    进入！" + afd_fsdkFaces.getAfd_Resoults().size()  +  " faceindex " + afd_fsdkFaces.getIndex());
+                    Log.e(TAG, "    抓取到人脸！" + afd_fsdkFaces.getAfd_Resoults().size()  +  " faceindex " + afd_fsdkFaces.getIndex());
 
                 if (afd_fsdkFaces == null || afd_fsdkFaces.getAfd_Resoults().size() <= 0 || afd_fsdkFaces.getIndex() == lastIndex) {
-                    Thread.sleep(200);
+                    Log.e(TAG, "    人脸要求不符 ");
+                            Thread.sleep(200);
                     continue;
                 }
-
+                Log.e(TAG, "    人脸有效 ");
                 lastIndex = afd_fsdkFaces.getIndex();
                 long time10 = System.currentTimeMillis();
                 boolean pass = false;
@@ -122,12 +125,12 @@ public class CompareThread extends Thread {
                     ArrayList<AFD_FSDKFace> afd_resoults = afd_fsdkFaces.getAfd_Resoults();
                     for (AFD_FSDKFace face : afd_resoults) {
                         long time6 = System.currentTimeMillis();
-                        Log.e(TAG, "   匹配人脸 ！");
                         AFR_FSDKFace afr_fsdkFace = new AFR_FSDKFace();
                         int width = SharedUtlis.getInt(engintHelper.getActivity(), "config", "width", 0);
                         int height = SharedUtlis.getInt(engintHelper.getActivity(), "config", "height", 0);
-
-                        AFR_FSDKError afr_fsdkError = afr_fsdkEngine.AFR_FSDK_ExtractFRFeature(afd_fsdkFaces.getData(), width, height, AFD_FSDKEngine.CP_PAF_NV21, face.getRect(), AFR_FSDKEngine.AFR_FOC_270, afr_fsdkFace);
+                        Log.e(TAG, "   提取人脸特征 ！");
+                        // 角度一定要对
+                        AFR_FSDKError afr_fsdkError = afr_fsdkEngine.AFR_FSDK_ExtractFRFeature(afd_fsdkFaces.getData(), width, height, AFD_FSDKEngine.CP_PAF_NV21, face.getRect(), AFR_FSDKEngine.AFR_FOC_0, afr_fsdkFace);
                         long time7 = System.currentTimeMillis();
 
                         Log.e(TAG, "   afr_fsdkError code  " + afr_fsdkError.getCode() + "  获取摄像头特征耗时 ： " + (time7 - time6));

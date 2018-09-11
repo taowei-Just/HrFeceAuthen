@@ -77,29 +77,38 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void sta(SurfaceView svC, SurfaceView svH) {
+    private void sta(final SurfaceView svC, SurfaceView svH) {
         EngintHelper engintHelper = new EngintHelper(this, svC, svH, new OnFaceCallback() {
             @Override
             public void OnFacePass(final MatchData rgbRect) {
                 Log.e(TAG, "OnFacePass " + rgbRect.toString());
                 try {
-                    final Bitmap bitmap = TailorHelper.tailor(rgbRect);
+                    final Bitmap bitmap = TailorHelper.tailor(svC,rgbRect);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             iv.setImageBitmap(bitmap);
+                            tv_scrol.setText("对比度： " + rgbRect.getmScore());     }
+                    });
+                    
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            iv.setImageBitmap(null);
                             tv_scrol.setText("对比度： " + rgbRect.getmScore());
                         }
                     });
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    
                 }
             }
 
             @Override
             public void OnNoMainFace() {
                 Log.e(TAG, "OnNoMainFace ");
-                Toast.makeText(context, "第一张照片特征获取失败！", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "第一张照片特征获取失败！", Toast.LENGTH_SHORT).show();
             }
 
             @Override

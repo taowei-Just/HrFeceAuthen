@@ -1,6 +1,8 @@
 package com.tao.hr_faceLib;
 
 import android.graphics.Bitmap;
+import android.util.Log;
+import android.view.SurfaceView;
 
 import com.tao.camerview.MatchData;
 
@@ -11,10 +13,20 @@ import com.tao.camerview.MatchData;
 
 public  class TailorHelper {
 
-    public static Bitmap tailor(MatchData featurData) throws  Exception {
+    public static Bitmap tailor(SurfaceView svC, MatchData featurData) throws  Exception {
+
+        float swidth  = svC.getWidth();
+        float sheight  = svC.getHeight();
+
+        Log.e("view 的宽高  width1s " , + swidth+"  height1s " +sheight );
+        
 
         int dw= featurData.getSourWidth() ;
         int dh=  featurData.getSourHeidht() ;
+
+        float sd = dw / swidth;
+        float sh = dh / sheight;
+
 
         int   picSideH ;
         int   picSideW ;
@@ -25,8 +37,10 @@ public  class TailorHelper {
         int top = featurData.getRect().top;
         int right = featurData.getRect().right;
         int bottom =  featurData.getRect().bottom;
-        int w = right - left;
-        int h = bottom - top;
+         
+        
+        int w = (int) ((right - left)*sd);
+        int h = (int) ((bottom - top)*sh);
 
         int ch = (int) (2 * h);
         int cw = (int) (1.4 * w);
@@ -49,9 +63,8 @@ public  class TailorHelper {
         height = bottom - top;
 
         Bitmap bitmap = BitmapUtile.nv212Bitmap(featurData.getSoursData(), dw, dh);
-
         Bitmap faceBitmap = Bitmap.createBitmap(bitmap, left, top, width, height, null, false);
-
+        
         return faceBitmap;
     }
 
