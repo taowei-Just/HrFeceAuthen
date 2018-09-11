@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias '123123'
+            keyPassword '123123'
+//            storeFile file('F:/android/work/key/hrfasetest.jks')
+            storePassword '123123'
+        }
+    }
+    compileSdkVersion 26
+    buildToolsVersion "27.0.3"
+    defaultConfig {
+        applicationId "hr_face.tao.com.hrfeceauthen"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+    //如果version.properties文件可读则执行操作
+    def versionPropsFile = file('version.properties')
+    if (versionPropsFile.canRead()) {
+        //载入version.properties
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionPropsFile))
+        //从version.properties根据关键字"VERSION_CODE"取Integer
+        def verCode = versionProps['VERSION_CODE'].toInteger()
+        //判断build模式，如果是发布模式（':app:assembleRelease'）则自增版本号，并且写回version.properties文件中
+        def runTasks = gradle.startParameter.taskNames
+        if (':app:assembleRelease' in runTasks) {
+            versionProps['VERSION_CODE'] = (++verCode).toString()
+            versionProps.store(versionPropsFile.newWriter(), null)
+        }
+        //使用自增后的版本号为为生成的APK命名
+        def verName = "0." + versionProps['VERSION_CODE'].toString()
+        applicationVariants.all { variant ->
+            if (variant.buildType.name.equals('release')) {
+                variant.outputs.each { output ->
+                    def appName = 'pm_'
+                    def oldFile = output.outputFile
+                    def releaseApkName
+                    //由于还是测试版本，所以用"0."开头，每次发布自增0.001，如有其他需求，可自行修改计算方法及前后缀即可
+                    releaseApkName = appName + "0." + verCode + '.APK'
+                    output.outputFile = new File(oldFile.parent, releaseApkName)
+                }
+            }
+        }
+    } else {
+        throw new GradleException("Could not read version.properties!")
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    testCompile 'junit:junit:4.12'
+    compile project(':hr_faceLib')
+}

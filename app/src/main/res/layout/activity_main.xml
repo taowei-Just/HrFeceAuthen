@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hr_face.tao.com.hrfeceauthen.MainActivity">
+
+    <SurfaceView
+        android:id="@+id/sv_head"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <SurfaceView
+        android:id="@+id/sv_camera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+    <ImageView
+        android:id="@+id/iv_head"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:rotation="270" />
+
+    <TextView
+        android:id="@+id/tv_scrol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_head"
+        android:layout_marginLeft="20dp"
+        android:text="0"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="18dp" />
+</RelativeLayout>

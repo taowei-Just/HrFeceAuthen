@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ExternalSDK_HYT/ExternalSDK_HYT.iml" filepath="$PROJECT_DIR$/ExternalSDK_HYT/ExternalSDK_HYT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HrFeceAuthen.iml" filepath="$PROJECT_DIR$/HrFeceAuthen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MidFaceSDK/MidFaceSDK.iml" filepath="$PROJECT_DIR$/MidFaceSDK/MidFaceSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hr_faceLib/hr_faceLib.iml" filepath="$PROJECT_DIR$/hr_faceLib/hr_faceLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample_external_sdk/sample_external_sdk.iml" filepath="$PROJECT_DIR$/sample_external_sdk/sample_external_sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testshangtamface/testshangtamface.iml" filepath="$PROJECT_DIR$/testshangtamface/testshangtamface.iml" />
+    </modules>
+  </component>
+</project>

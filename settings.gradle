@@ -1,0 +1,1 @@
+include ':app', ':hr_faceLib', ':sample_external_sdk', ':testshangtamface', ':ExternalSDK_HYT', ':MidFaceSDK'
